@@ -1,62 +1,72 @@
-// --- UI Card Rendering Functions ---
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Get the ID from the URL link (e.g., brief.html?id=123)
+    const urlParams = new URLSearchParams(window.location.search);
+    const briefId = urlParams.get('id');
 
-function renderBrief(data) {
-    // 1. Log the data so you can see exactly what the database is sending!
-    console.log("Database Data Received:", data); 
-
-    // 2. Smartly extract the content, regardless of how FastAPI formats it
-    let content = data;
-    if (data.content) {
-        content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
-    } else if (typeof data === 'string') {
-        content = JSON.parse(data);
-    }
-
-    // 3. Populate cards, checking for the different possible names the AI might have used
-    populateCards("summary", content.summary || content.Summary || "No summary provided.");
-    populateCards("goals", content.goals || content.Goals || []);
-    
-    // Check for "missing", "missing_information", etc.
-    const missingData = content.missing || content.missing_information || content.missingInformation || [];
-    populateCards("missing", missingData);
-    
-    // Check for "questions", "follow_up_questions", etc.
-    const questionData = content.questions || content.follow_up_questions || content.followUpQuestions || [];
-    populateCards("questions", questionData);
-}
-
-function populateCards(containerId, items) {
-    // Find the container using a few common naming conventions
-    const container = document.getElementById(containerId) || 
-                      document.getElementById(`${containerId}-container`) ||
-                      document.querySelector(`.${containerId}-container`);
-                      
-    if (!container) {
-        console.warn(`Could not find HTML container for: ${containerId}`);
-        return;
-    }
-    
-    container.innerHTML = ""; // Clear any loading text
-    
-    // Ensure it's an array so we can loop through it cleanly
-    if (!Array.isArray(items)) {
-        items = [items];
-    }
-
-    // If the array is empty, let the user know
-    if (items.length === 0) {
-        const emptyCard = document.createElement("div");
-        emptyCard.className = `card ${containerId}-card`;
-        emptyCard.textContent = "None generated.";
-        container.appendChild(emptyCard);
+    if (!briefId) {
+        alert("No brief ID provided.");
+        window.location.href = "/"; // Send them back to main page if there's no ID
         return;
     }
 
-    // Build the UI cards
-    items.forEach(item => {
-        const card = document.createElement("div");
-        card.className = `card ${containerId}-card`; 
-        card.textContent = item;
-        container.appendChild(card);
+    // 2. Fetch the brief from the database
+    try {
+        const response = await fetch(`/api/brief/${briefId}`);
+        if (response.ok) {
+            const result = await response.json();
+            const briefData = typeof result.content === 'string' ? JSON.parse(result.content) : result.content;
+            renderBrief(briefData);
+        } else {
+            alert("Brief not found.");
+            window.location.href = "/";
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Error loading brief.");
+    }
+
+    // 3. Populate the UI with color-coded cards
+    function renderBrief(data) {
+        document.getElementById("out-summary").textContent = data.summary || "N/A";
+        
+        const populateCards = (elementId, array, cardClass) => {
+            const container = document.getElementById(elementId);
+            container.innerHTML = ""; // Clear out loading state
+            
+            if(array && array.length > 0) {
+                array.forEach(item => {
+                    const cardDiv = document.createElement("div");
+                    cardDiv.className = `card ${cardClass}`;
+                    cardDiv.textContent = item;
+                    container.appendChild(cardDiv);
+                });
+            } else {
+                const emptyCard = document.createElement("div");
+                emptyCard.className = "card";
+                emptyCard.textContent = "None identified";
+                container.appendChild(emptyCard);
+            }
+        };
+
+        // Pass specific color classes to each category
+        populateCards("out-goals", data.goals, "card-goal");
+        populateCards("out-missing", data.missing, "card-missing");
+        populateCards("out-followups", data.follow_ups, "card-followup");
+
+        // Set the share URL to the current page URL
+        document.getElementById("share-url").value = window.location.href;
+    }
+
+    // 4. Modern Copy to Clipboard logic
+    document.getElementById("copy-btn").addEventListener("click", () => {
+        const copyText = document.getElementById("share-url");
+        navigator.clipboard.writeText(copyText.value)
+            .then(() => alert("Link copied to clipboard!"))
+            .catch(err => console.error("Failed to copy:", err));
     });
-}
+
+    // 5. Back Button Logic
+    document.getElementById("home-back-btn").addEventListener("click", () => {
+        window.location.href = "/"; // Sends the user back to the main landing page
+    });
+});
