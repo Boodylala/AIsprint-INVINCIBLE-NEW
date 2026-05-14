@@ -81,14 +81,24 @@ async def generate_brief(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/brief/{brief_id}")
+async def get_brief(brief_id: str):
+    try:
+        brief_data = database.get_brief(brief_id)
+        if not brief_data:
+            raise HTTPException(status_code=404, detail="Brief not found")
+        return {"status": "success", "content": brief_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.patch("/api/brief/{brief_id}/confirm")
 async def confirm_brief(brief_id: str):
     try:
-        # Call the new database function
-        confirm_brief_in_db(brief_id)
+        database.confirm_brief_in_db(brief_id)
         return {"status": "success", "message": "Brief confirmed successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to confirm brief: {str(e)}")
+
 # Mount static files for the frontend
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
