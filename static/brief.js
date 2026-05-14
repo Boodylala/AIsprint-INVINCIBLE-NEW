@@ -59,3 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             .catch(err => console.error("Failed to copy:", err));
     });
 });
+// 5. Back Button Logic
+    document.getElementById("home-back-btn").addEventListener("click", () => {
+        window.location.href = "/"; // Sends the user back to the main landing page
+    });
