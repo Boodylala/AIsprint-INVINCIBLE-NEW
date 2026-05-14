@@ -25,7 +25,7 @@ app.add_middleware(
 # Configure Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # Using gemini-1.5-flash as it is fast and supports multimodal (audio, images, text)
-model = genai.GenerativeModel('gemini-2.5-flash') 
+model = genai.GenerativeModel('gemini-3.1-flash') 
 
 SYSTEM_PROMPT = """
 You are an expert technical product manager. Analyze the following messy client inputs (which may include text, voice transcripts, and screenshots). 
