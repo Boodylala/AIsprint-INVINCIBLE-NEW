@@ -25,32 +25,37 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Error loading brief.");
     }
 
-    // 3. Populate the UI
+// 3. Populate the UI
     function renderBrief(data) {
         document.getElementById("out-summary").textContent = data.summary || "N/A";
         
-        const populateList = (elementId, array) => {
-            const ul = document.getElementById(elementId);
-            ul.innerHTML = "";
+        const populateCards = (elementId, array, cardClass) => {
+            const container = document.getElementById(elementId);
+            container.innerHTML = ""; // Clear out loading state
+            
             if(array && array.length > 0) {
                 array.forEach(item => {
-                    const li = document.createElement("li");
-                    li.textContent = item;
-                    ul.appendChild(li);
+                    const cardDiv = document.createElement("div");
+                    cardDiv.className = `card ${cardClass}`;
+                    cardDiv.textContent = item;
+                    container.appendChild(cardDiv);
                 });
             } else {
-                ul.innerHTML = "<li>None identified</li>";
+                const emptyCard = document.createElement("div");
+                emptyCard.className = "card";
+                emptyCard.textContent = "None identified";
+                container.appendChild(emptyCard);
             }
         };
 
-        populateList("out-goals", data.goals);
-        populateList("out-missing", data.missing);
-        populateList("out-followups", data.follow_ups);
+        // Pass specific color classes to each category
+        populateCards("out-goals", data.goals, "card-goal");
+        populateCards("out-missing", data.missing, "card-missing");
+        populateCards("out-followups", data.follow_ups, "card-followup");
 
         // Set the share URL to the current page URL
         document.getElementById("share-url").value = window.location.href;
     }
-
     // 4. Modern Copy to Clipboard logic
     document.getElementById("copy-btn").addEventListener("click", () => {
         const copyText = document.getElementById("share-url");
