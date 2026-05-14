@@ -120,9 +120,15 @@ body {
     gap: 20px;
 }
 
+.character-illustration {
+    width: 100%;
+    text-align: center; /* Ensures the container centers the image */
+}
+
 .character-illustration img {
-    width: 140px;
-    margin-bottom: 10px;
+    width: 250px; /* Increase this value to make him bigger (it was 140px) */
+    display: block; 
+    margin: 0 auto 10px auto; /* This guarantees he stays perfectly centered */
 }
 
 #brief-form {
