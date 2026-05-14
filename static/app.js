@@ -3,10 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputView = document.getElementById("input-view");
     const outputView = document.getElementById("output-view");
     
-    // View transitions
+    // View transitions: Go to Input
     document.getElementById("get-started-btn").addEventListener("click", () => {
         landingView.classList.add("hidden");
         inputView.classList.remove("hidden");
+    });
+
+    // View transitions: Go Back to Landing
+    document.getElementById("back-btn").addEventListener("click", () => {
+        inputView.classList.add("hidden");
+        landingView.classList.remove("hidden");
     });
 
     // Handle Form Submission
