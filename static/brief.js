@@ -65,7 +65,38 @@ document.addEventListener("DOMContentLoaded", async () => {
             .catch(err => console.error("Failed to copy:", err));
     });
 
-    // 5. Back Button Logic
+    // 5. Confirm Brief Button Logic
+    document.getElementById("confirm-btn").addEventListener("click", async () => {
+        const confirmBtn = document.getElementById("confirm-btn");
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = "Confirming...";
+
+        try {
+            const response = await fetch(`/api/brief/${briefId}/confirm`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                confirmBtn.textContent = "✓ Brief Confirmed";
+                confirmBtn.classList.add("confirmed");
+                confirmBtn.style.backgroundColor = "#10B981";
+            } else {
+                alert("Error confirming brief. Please try again.");
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = "✓ Confirm Brief";
+            }
+        } catch (error) {
+            console.error("Error confirming brief:", error);
+            alert("Error confirming brief. Please try again.");
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = "✓ Confirm Brief";
+        }
+    });
+
+    // 6. Back Button Logic
     document.getElementById("home-back-btn").addEventListener("click", () => {
         window.location.href = "/"; // Sends the user back to the main landing page
     });
