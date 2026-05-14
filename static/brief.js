@@ -1,13 +1,49 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Get the ID from the URL link (e.g., brief.html?id=123)
-    const urlParams = new URLSearchParams(window.location.search);
-    const briefId = urlParams.get('id');
+document.addEventListener("DOMContentLoaded", () => {
+    // ... your existing code to fetch and render the brief ...
 
-    if (!briefId) {
-        alert("No brief ID provided.");
-        window.location.href = "/"; // Send them back to main page if there's no ID
-        return;
+    const confirmBtn = document.getElementById("confirm-btn");
+    
+    if (confirmBtn) {
+        confirmBtn.addEventListener("click", async () => {
+            // Grab the ID from the URL link, just like you do for fetching the brief data
+            const urlParams = new URLSearchParams(window.location.search);
+            const briefId = urlParams.get("id");
+
+            if (!briefId) return;
+
+            try {
+                // Change button text to show it's working
+                confirmBtn.textContent = "Confirming...";
+                confirmBtn.disabled = true;
+
+                // Send the PATCH request to your new backend endpoint
+                const response = await fetch(`/api/brief/${briefId}/confirm`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Update UI for success
+                    confirmBtn.textContent = "✅ Brief Confirmed!";
+                    confirmBtn.style.backgroundColor = "#4CAF50"; // Soft green success color
+                    confirmBtn.style.color = "white";
+                    confirmBtn.style.border = "none";
+                } else {
+                    // Revert UI on failure
+                    confirmBtn.textContent = "I Confirm This Brief";
+                    confirmBtn.disabled = false;
+                    alert("Something went wrong confirming the brief. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error confirming brief:", error);
+                confirmBtn.textContent = "I Confirm This Brief";
+                confirmBtn.disabled = false;
+            }
+        });
     }
+});
 
     // 2. Fetch the brief from the database
     try {
