@@ -84,10 +84,10 @@ async def generate_brief(
 @app.get("/api/brief/{brief_id}")
 async def get_brief(brief_id: str):
     try:
-        brief_data = database.get_brief(brief_id)
+        brief_data = database.fetch_brief(brief_id)
         if not brief_data:
             raise HTTPException(status_code=404, detail="Brief not found")
-        return {"status": "success", "content": brief_data}
+        return {"status": "success", "content": brief_data['content']}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
