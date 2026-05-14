@@ -28,7 +28,7 @@ def fetch_brief(brief_id: str):
 def confirm_brief_in_db(brief_id: str):
     """Updates the confirmed status of a brief to True in Supabase."""
     try:
-        # Assuming your Supabase client is initialized as 'supabase'
+        supabase = get_supabase_client()
         response = supabase.table("briefs").update({"confirmed": True}).eq("id", brief_id).execute()
         return response
     except Exception as e:
