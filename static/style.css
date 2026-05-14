@@ -126,7 +126,7 @@ body {
 }
 
 .character-illustration img {
-    width: 550px; /* Increase this value to make him bigger (it was 140px) */
+    width: 250px; /* Increase this value to make him bigger (it was 140px) */
     display: block; 
     margin: 0 auto 10px auto; /* This guarantees he stays perfectly centered */
 }
