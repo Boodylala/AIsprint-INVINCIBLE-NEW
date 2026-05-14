@@ -1,0 +1,223 @@
+:root {
+    --bg-color: #f1f2f4;
+    --text-color: #1a1a1a;
+    --border-color: #1a1a1a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.view {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Landing Page */
+.landing-content {
+    text-align: center;
+}
+
+.subtitle {
+    letter-spacing: 0.5em;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.logo {
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+}
+
+.powered-by {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.primary-btn {
+    background-color: var(--text-color);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 40px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.2s;
+}
+
+.primary-btn:hover {
+    transform: scale(1.02);
+}
+
+/* Input Page */
+.header-icon {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.norple-avatar-small {
+    width: 40px;
+    height: 40px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.character-illustration img {
+    width: 150px;
+}
+
+.main-input {
+    width: 100%;
+    padding: 20px 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 40px;
+    background: transparent;
+    font-size: 1.2rem;
+    outline: none;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.upload-box {
+    width: 150px;
+    height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.2s;
+}
+
+.upload-box:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.upload-limit {
+    font-size: 0.6rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+.submit-plus {
+    width: 50px;
+    height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    background: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.submit-plus:hover {
+    background: var(--text-color);
+    color: white;
+}
+
+/* Output View */
+.brief-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.share-link {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.share-link input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.share-link button {
+    padding: 10px 20px;
+    background: var(--text-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.brief-section {
+    margin-bottom: 25px;
+}
+
+.brief-section h3 {
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 5px;
+}
+
+.brief-section ul {
+    padding-left: 20px;
+}
+
+#loading {
+    margin-top: 20px;
+    font-weight: bold;
+}
