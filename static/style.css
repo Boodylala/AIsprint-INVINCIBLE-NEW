@@ -141,7 +141,7 @@ body {
 .main-input {
     width: 100%;
     padding: 20px 30px;
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 40px;
     background: transparent;
     font-size: 1.2rem;
@@ -160,7 +160,7 @@ body {
 .upload-box {
     width: 160px;
     height: 160px;
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -195,7 +195,7 @@ body {
 .submit-plus {
     width: 40px;
     height: 160px;
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
     font-size: 1.5rem;
