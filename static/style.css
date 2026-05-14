@@ -263,3 +263,50 @@ body {
     margin-top: 20px;
     font-weight: bold;
 }
+/* --- Brief Page Colored Cards --- */
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.card {
+    padding: 15px 20px;
+    border-radius: 12px;
+    border-left: 6px solid var(--border-color); /* Default fallback */
+    background-color: #fafafa;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    color: var(--text-color);
+}
+
+/* Color Coding Themes */
+
+/* Goals: Minimalist Green */
+.card-goal {
+    border-left-color: #10B981; 
+    background-color: #ECFDF5;
+}
+
+/* Missing Info: Minimalist Red/Orange */
+.card-missing {
+    border-left-color: #EF4444; 
+    background-color: #FEF2F2;
+}
+
+/* Follow-ups: Minimalist Blue */
+.card-followup {
+    border-left-color: #3B82F6; 
+    background-color: #EFF6FF;
+}
+
+/* Adjust Summary text to match card spacing */
+#out-summary {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-top: 10px;
+    color: #444;
+}
