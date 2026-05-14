@@ -1,3 +1,27 @@
+// --- File Upload Visual Feedback ---
+    const fileInputs = document.querySelectorAll('.upload-box input[type="file"]');
+
+    fileInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            // Find the specific text span inside the box that was clicked
+            const uploadBox = e.target.closest('.upload-box');
+            const uploadText = uploadBox.querySelector('.upload-text');
+
+            // If files were selected, show the checkmark
+            if (e.target.files && e.target.files.length > 0) {
+                // If multiple files are uploaded in one box, show the count, otherwise just ATTACHED
+                if (e.target.files.length > 1) {
+                    uploadText.textContent = `✅ ${e.target.files.length} FILES`;
+                } else {
+                    uploadText.textContent = "✅ ATTACHED";
+                }
+            } else {
+                // If the user cancels the upload window, revert the text
+                uploadText.textContent = "ATTACH HERE";
+            }
+        });
+    });
+
 document.addEventListener("DOMContentLoaded", () => {
     const landingView = document.getElementById("landing-view");
     const inputView = document.getElementById("input-view");
