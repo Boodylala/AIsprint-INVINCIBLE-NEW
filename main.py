@@ -9,6 +9,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 import tempfile
 import database
+from fastapi import HTTPException
+
 
 app = FastAPI()
 
@@ -79,13 +81,14 @@ async def generate_brief(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/api/brief/{brief_id}")
-async def get_brief(brief_id: str):
-    brief = database.fetch_brief(brief_id)
-    if not brief:
-        raise HTTPException(status_code=404, detail="Brief not found")
-    return brief
-
+@app.patch("/api/brief/{brief_id}/confirm")
+async def confirm_brief(brief_id: str):
+    try:
+        # Call the new database function
+        confirm_brief_in_db(brief_id)
+        return {"status": "success", "message": "Brief confirmed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to confirm brief: {str(e)}")
 # Mount static files for the frontend
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
