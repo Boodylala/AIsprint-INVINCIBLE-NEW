@@ -17,23 +17,17 @@ NORPLE is a web application designed to help freelancers and development teams i
 * Deployment: Railway Platform (Optimizes continuous building workflows straight from integrated Git repositories)
 
 ## Repository Architecture
- main.py                # Core FastAPI web server mounting routes & Gemini endpoints
- 
+ main.py                # Core FastAPI web server mounting routes & Gemini endpoints 
  database.py            # Supabase connection orchestration layer
  requirements.txt       # Python environment dependency manifest
  .gitignore             # Active safety filters to block local token exposures
  .env.example           # Sample configuration blueprint for active workspace tokens
  static/                # Main assets container mounted directly to backend roots
-     
-     index.html         # Intake form interface and main landing layout
-     
-     brief.html         # Dedicated visualization template for structured brief readouts
-     
-     app.js             # Input event handlers, upload feedback trackers, and redirection workflows
-     
-     brief.js           # Direct client-side database querying via specific item IDs
-     
-     style.css          # Polished minimalist gray/black design definitions
+   index.html         # Intake form interface and main landing layout
+   brief.html         # Dedicated visualization template for structured brief readouts
+   app.js             # Input event handlers, upload feedback trackers, and redirection workflows  
+   brief.js           # Direct client-side database querying via specific item IDs
+   style.css          # Polished minimalist gray/black design definitions
 
 ## Database Configuration
 Before launching the utility, create a new backend data container table within your Supabase Dashboard labeled `briefs` using the following schema specifications:
